@@ -11,7 +11,6 @@ def check_feed_updates(feed_url, interval):
     current_date = datetime.now(pytz.utc)  # Gebruik UTC-tijdzone
     start_date = current_date - timedelta(days=interval)
 
-
     for entry in feed.entries:
         # Probeer 'published', als dat niet beschikbaar is, probeer 'updated'
         if 'published' in entry:
@@ -30,6 +29,7 @@ def check_feed_updates(feed_url, interval):
             print("Link:", entry.link)
             print("\n")
 
+
 # Hier wordt de lijst met feed-URL's gedefinieerd
 def get_urls():
     urls = [
@@ -39,7 +39,7 @@ def get_urls():
     return urls
 
 # Hier wordt het interval in dagen gedefinieerd
-interval = int(os.getenv("INTERVAL_IN_DAYS", default="7"))
+interval = int(os.getenv("INTERVAL_IN_DAYS", default="3"))
 
 # Hierdoor worden updates gecontroleerd voor elke feed in de lijst
 feed_urls = get_urls()
