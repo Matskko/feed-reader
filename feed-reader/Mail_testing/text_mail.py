@@ -6,7 +6,7 @@ PORT = 587
 
 FROM_EMAIL = "tobiasprogramming@outlook.com"  
 TO_EMAIL = "tobiasvdvaart@gmail.com"
-PASSWORD = getpass.getpass("Enter password: ")
+PASSWORD = getpass.getpass("Enter password:")
 
 MESSAGE = """Subject: mail sent using python
 hi test,
