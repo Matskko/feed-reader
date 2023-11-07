@@ -14,3 +14,4 @@ def get_urls():
 # Gebruik de get_interval-functie om de waarde van interval in te stellen
 interval = get_interval()
 
+

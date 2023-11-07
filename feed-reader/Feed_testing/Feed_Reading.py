@@ -3,16 +3,14 @@ import feedparser
 from datetime import datetime, timedelta
 import pytz
 
-# Definieer een functie om de feeds te controleren en updates weer te geven
+
 def check_feed_updates(feed_url, interval):
     feed = feedparser.parse(feed_url)
 
-
-    current_date = datetime.now(pytz.utc)  # Gebruik UTC-tijdzone
+    current_date = datetime.now(pytz.utc)  
     start_date = current_date - timedelta(days=interval)
 
     for entry in feed.entries:
-        # Probeer 'published', als dat niet beschikbaar is, probeer 'updated'
         if 'published' in entry:
             entry_date = datetime.fromisoformat(entry.published)
         elif 'updated' in entry:
@@ -21,7 +19,7 @@ def check_feed_updates(feed_url, interval):
             print("Datum/tijdstempel niet gevonden voor deze entry.")
             continue
 
-        entry_date = entry_date.replace(tzinfo=pytz.utc)  # Zorg ervoor dat het datetime-object in UTC is
+        entry_date = entry_date.replace(tzinfo=pytz.utc) 
         if entry_date >= start_date:
             print("Update found on", entry_date.strftime("%Y-%m-%d %H:%M:%S"))
             print("Title:", entry.title)
@@ -30,7 +28,8 @@ def check_feed_updates(feed_url, interval):
             print("\n")
 
 
-# Hier wordt de lijst met feed-URL's gedefinieerd
+
+
 def get_urls():
     urls = [
         'https://github.com/acryldata/datahub-helm/releases.atom',
@@ -38,10 +37,9 @@ def get_urls():
     ]
     return urls
 
-# Hier wordt het interval in dagen gedefinieerd
-interval = int(os.getenv("INTERVAL_IN_DAYS", default="3"))
 
-# Hierdoor worden updates gecontroleerd voor elke feed in de lijst
+interval = int(os.getenv("INTERVAL_IN_DAYS", default="7"))
+
 feed_urls = get_urls()
 for feed_url in feed_urls:
     check_feed_updates(feed_url, interval)
