@@ -8,7 +8,7 @@ def send_email(subject, message):
 
     # Get email credentials from environment variables
     FROM_EMAIL = os.environ.get("tobiasprogramming@outlook.com")  # Use the correct environment variable name
-    PASSWORD = os.environ.get("Software2005")  # Use the correct environment variable name
+    PASSWORD = os.environ.get("")  # Use the correct environment variable name
     TO_EMAIL = "tobiasvdvaart@gmail.com"
 
     # Check if credentials are available
