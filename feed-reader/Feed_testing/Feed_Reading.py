@@ -29,7 +29,6 @@ def check_feed_updates(feed_url, interval):
 
 
 
-
 def get_urls():
     urls = [
         'https://github.com/acryldata/datahub-helm/releases.atom',
@@ -38,7 +37,7 @@ def get_urls():
     return urls
 
 
-interval = int(os.getenv("INTERVAL_IN_DAYS", default="7"))
+interval = int(os.getenv("INTERVAL_IN_DAYS", default="10"))
 
 feed_urls = get_urls()
 for feed_url in feed_urls:
