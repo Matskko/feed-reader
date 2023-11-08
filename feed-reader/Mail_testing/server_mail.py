@@ -6,16 +6,15 @@ def send_email(subject, message):
     HOST = "smtp-mail.outlook.com"
     PORT = 587
 
-    # Get email credentials from environment variables
-    FROM_EMAIL = os.environ.get("tobiasprogramming@outlook.com")  # Use the correct environment variable name
-    PASSWORD = os.environ.get("")  # Use the correct environment variable name
+   
+    FROM_EMAIL = os.environ.get("OUTLOOK_EMAIL")  
+    PASSWORD = os.environ.get("OUTLOOK_PASSWORD")  
     TO_EMAIL = "tobiasvdvaart@gmail.com"
 
     # Check if credentials are available
     if FROM_EMAIL is None or PASSWORD is None:
         print("Email credentials not found in environment variables.")
         return
-
 
     smtp = smtplib.SMTP(HOST, PORT)
 
