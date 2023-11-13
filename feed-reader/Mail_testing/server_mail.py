@@ -9,8 +9,8 @@ def send_email(subject, message):
    
     FROM_EMAIL = os.environ.get("OUTLOOK_EMAIL")  
     PASSWORD = os.environ.get("OUTLOOK_PASSWORD")  
-    TO_EMAIL = "tobiasvdvaart@gmail.com"
-
+    TO_EMAIL = "Hugosrnout2006@gmail.com"
+#"Hugosrnout2006@gmail.com"
     # Check if credentials are available
     if FROM_EMAIL is None or PASSWORD is None:
         print("Email credentials not found in environment variables.")
@@ -33,13 +33,13 @@ def send_email(subject, message):
     smtp.quit()
 
 if __name__ == "__main__":
-    subject = "Mail sent using Python"
+    subject = "Ifo "
     message = """Hi there,
 
-This is a test email sent using a Python function.
+test.
 
-Thanks,
-Test account
+Groeten,
+test.
 """
 
     send_email(subject, message)

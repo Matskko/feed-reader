@@ -41,24 +41,6 @@ def get_urls():
     ]
     return urls
 
-interval = int(os.getenv("INTERVAL_IN_DAYS", default="10"))
-feed_urls = get_urls()
-
-all_feed_updates = []
-
-for feed_url in feed_urls:
-    feed_updates = check_feed_updates(feed_url, interval)
-    all_feed_updates.extend(feed_updates)
-
-email_subject = "Feed Updates"
-email_body = "List of Updates:\n\n"
-
-for update in all_feed_updates:
-    email_body += f"Update found on {update['update_date']}\n"
-    email_body += f"Title: {update['title']}\n"
-    email_body += f"Summary: {update['summary']}\n"
-    email_body += f"Link: {update['link']}\n\n"
-
 def send_email(subject, message):
     FROM_EMAIL = os.getenv("YOUR_EMAIL")
     PASSWORD = os.getenv("YOUR_PASSWORD")
@@ -75,9 +57,28 @@ def send_email(subject, message):
         smtp.starttls()
         smtp.login(FROM_EMAIL, PASSWORD)
 
-        msg = f"Subject: {subject}\n\n{message}"
+        msg = f"Subject: {subject}\n\n{message}".encode('utf-8')
 
         smtp.sendmail(FROM_EMAIL, TO_EMAIL, msg)
 
 if __name__ == "__main__":
+    interval = int(os.getenv("INTERVAL_IN_DAYS", default="10"))
+    feed_urls = get_urls()
+
+    all_feed_updates = []
+
+    for feed_url in feed_urls:
+        feed_updates = check_feed_updates(feed_url, interval)
+        all_feed_updates.extend(feed_updates)
+
+    email_subject = "Feed Updates"
+    email_body = "List of Updates:\n\n"
+
+    for update in all_feed_updates:
+        email_body += f"Update found on {update['update_date']}\n"
+        email_body += f"Title: {update['title']}\n"
+        email_body += f"Summary: {update['summary']}\n"
+        email_body += f"Link: {update['link']}\n\n"
+
     send_email(email_subject, email_body)
+    print("The E-mail has been sent.")
