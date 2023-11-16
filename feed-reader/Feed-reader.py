@@ -29,12 +29,6 @@ def check_feed_updates(feed_url, interval):
             entry_info['title'] = entry.title
             entry_info['summary'] = entry.summary
             entry_info['link'] = entry.link
-            entry_info['author'] = entry.author_detail.get('name', 'N/A')
-
-            # Aanvullende gegevens
-            entry_info['category'] = entry.get('category', 'N/A')
-            entry_info['tags'] = entry.get('tags', [])
-            entry_info['total_items'] = len(feed.entries)
 
             info.append(entry_info)
 
@@ -68,7 +62,7 @@ def send_email(subject, message):
         smtp.sendmail(FROM_EMAIL, TO_EMAIL, msg)
 
 if __name__ == "__main__":
-    interval = int(os.getenv("INTERVAL_IN_DAYS", default="10"))
+    interval = int(os.getenv("INTERVAL_IN_DAYS", default="11"))
     feed_urls = get_urls()
 
     all_feed_updates = []
@@ -84,21 +78,7 @@ if __name__ == "__main__":
         email_body += f"Update found on {update['update_date']}\n"
         email_body += f"Title: {update['title']}\n"
         email_body += f"Summary: {update['summary']}\n"
-        email_body += f"Link: {update['link']}\n"
-        email_body += f"Author: {update['author']}\n"
-        email_body += f"Category: {update['category']}\n"
-        email_body += f"Tags: {', '.join(update['tags'])}\n"
-        email_body += "\n"
-
-    
-    total_items = sum(update['total_items'] for update in all_feed_updates)
-    categories = set(update['category'] for update in all_feed_updates)
-    email_body += f"Statistieken:\n"
-    email_body += f" - Totaal aantal updates: {total_items}\n"
-    email_body += f" - Aantal updates per categorie:\n"
-    for category in categories:
-        category_count = sum(1 for update in all_feed_updates if update['category'] == category)
-        email_body += f"    - {category}: {category_count}\n"
-
+        email_body += f"Link: {update['link']}\n\n"
+        
     send_email(email_subject, email_body)
     print("The E-mail has been sent.")
