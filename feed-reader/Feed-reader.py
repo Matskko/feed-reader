@@ -103,3 +103,5 @@ if __name__ == "__main__":
         
     send_email(email_subject, email_body)
     print("De e-mail is verstuurd.")
+
+print("completed")
